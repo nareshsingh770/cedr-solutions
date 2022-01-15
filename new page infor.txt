@@ -1,3 +1,47 @@
+body#post-34973 .permissions-section p
+
+.removeClass('yes_proxy_text').addClass('no_proxy_text')
+
+localStorage.setItem("designation_level","Admin_designation_level");
+
+
+
+
+
+
+Notes: On all profiles permission modal opens set the default to no with button enabled.
+
+on profile 3: if proxy selected to yes down bottom admin proxy text should come.
+
+$('#custom_admin, #custom_manager, #custom_manager2').removeClass('mobile_permission_preeti_no mobile_permission_preeti_yes')
+
+mobile_permission_preeti_no mobile_permission_preeti_yes
+
+
+if(selectedOption==='1' || selectedOption==='3' ){
+                console.log('level check')
+                $('#custom_admin, #custom_manager, #custom_manager2').removeClass('mobile_permission_preeti_no')
+                $('#custom_admin, #custom_manager, #custom_manager2').removeClass('mobile_permission_preeti_yes')
+            }\
+
+
+Employee---> admin, manager, owner should visible
+Manager--->  admin, manager, owner should visible
+admin------>
+
+
+
+
+$("body#post-34973 .permissionApplyModal .controlWrapper a.cancelButton.cedr-darkgray-font.modal-close.back-btn, body#post-34973 .controlWrapper button.orangeButton"
+    ).click(function () {
+        $(
+            "#per_scroll, #pre_scoll1, #four_custom_permissionApplyModal, #four_custom_lastpermissionApplyModal"
+        ).scrollTop(0);
+    });
+
+
+
+
 new page id: 35458
 old page id: 34973
 
