@@ -1,0 +1,1084 @@
+<?
+
+/**
+ * The template for displaying the footer.
+ *
+ * Contains the closing of the <main>
+ *
+ * @package WordPress
+ * @subpackage Meraki
+ * @since Meraki
+ */
+
+?>
+</main>
+
+<div id="adSpace">
+   
+</div>
+ 
+ 
+<footer class="gradient page-footer">
+    <div class="container verticalFlex">
+        <div class="leftFooter">
+            <a href="https://www.cedrsolutions.com/" class="footer-logo">
+                <img class="" src="/membership/sandbox4/wp-content/themes/Meraki/images/cedr.png" />
+            </a>
+            <div class="contactWrapper">
+                <a href="tel:8664146056" class="phone">(866) 414-6056</a> Copyright 2019
+            </div>
+        </div>
+        <div class="rightFooter">
+            <div class="ToU">
+                <ul> 
+                    <?PHP 
+                        if(isset($_SESSION['myusername'])) {
+                            // echo '<li><a class="cedr-green-font" href="http://www.cedrsolutions.com/membership/sandbox4/feedback/">Feedback</a></li>
+                            //       <li>|</li>';
+                            echo '<li><a class="cedr-green-font feedback_btn" href="#">Feedback</a></li>
+                                  <li>|</li>';
+                        }
+                    ?>
+                    <!-- |</li>  can't have feedback link because assumes signed in and that is not guaranteed in the footer -->
+                    <li><a href="https://www.cedrsolutions.com/membership/sandbox4/tou/">Terms of Use</a></li>
+                    <li>|</li>
+                    <li><a href="https://www.cedrsolutions.com/membership/sandbox4/privacypolicy/">Privacy Policy</a></li>
+                    <li>
+                        <?PHP  
+
+                        ?>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+    <div class="helpOverlay">
+<?PHP 
+    if (is_page(23365)) {
+        echo '
+            <img class="responsive-img" src="http://res.cloudinary.com/cedr-hr-solutions/image/upload/v1510091539/092_Overlay_MasterFolder2_nuu0mn.png" />
+        ';
+    } elseif(is_page(24185)) {
+        echo '
+        <img class="responsive-img" src="http://res.cloudinary.com/cedr-hr-solutions/image/upload/v1510091539/092_Overlay_EEFolder_zwyozi.png" />
+        ';
+    }  elseif(is_page(24196)) {
+        echo '
+        <img class="responsive-img" src="http://res.cloudinary.com/cedr-hr-solutions/image/upload/v1510091539/092_Overlay_EEFile_rfi2l2.png" />
+        ';
+    }  elseif(is_page(23885)) {
+        echo '
+        <img class="responsive-img" src="http://res.cloudinary.com/cedr-hr-solutions/image/upload/v1510091539/092_Overlay_File_riiyky.png" />
+        ';
+    }
+?>
+    </div>
+
+
+<?PHP
+    $myusername = $_SESSION['myusername'];
+    $sql = "SELECT login.num AS uid, login.MEM as level FROM login WHERE login.username = '$myusername';";
+    $result=mysql_query($sql);
+    while($row = mysql_fetch_array($result))
+      {
+        $uid = $row['uid'];
+        $level = $row['level'];
+      }
+?>  
+<!-- mobile-menu script-->
+<script>
+    function actions_menu(e) {
+        $(e).parent().find('.actionList').css({'opacity' : '1', 'bottom' : '0%'});
+        $(e).parent().find('.eeActionList').css({'opacity' : '1', 'bottom' : '0%'});
+        $('header .tintbg').fadeIn();
+    }
+    function add_showhints(e) {
+        $(e).parent().siblings().find('.itemTooltip').removeClass('showhints');            
+        $(e).siblings('.itemTooltip').removeAttr("style");
+        $(e).siblings('.itemTooltip').toggleClass('showhints');  
+    }
+
+    $(document).ready(function(){
+        $('nav .fa-bars').click(function(){ 
+            $('.mem.vlt header .subNav.container').stop().css({'right' : '0%', 'visibility' : 'visible'});
+            $('header .tintbg').fadeIn();
+        });  
+        $('header .tintbg').click(function(){
+            $('.mem.vlt header .subNav.container').stop().css({'right' : '-100%', 'visibility' : 'hidden'});
+            $('.actionList, .eeActionList').css({'opacity' : '0', 'bottom' : '-100%'});
+            $('.deletemodal.open').css({'opacity' : '0', 'display' : 'none'});
+            $('.eeActionList').removeClass('active')
+            $('.itemTooltip').removeClass('showhints');
+            $('.activeUserHighlight .listItem.visible').css('z-index','99')
+            $('header .alertsDropdown.for_mobile').css('visibility' , 'hidden');
+            // $('.paginationWrapper').fadeOut();
+            $(this).fadeOut();
+
+            //4) Horizontal. Can't get to the Delete Hint because the action menu doesn't scroll. - Resources Page           
+            $('.action_list_1, .action_list_2').removeClass('active_menu');
+              
+
+        });  
+        // $('body#post-24185 main .rightColumn .island.active .pagination, body#post-23365 main .rightColumn .island.active .pagination').click(function(){
+        //     $('.paginationWrapper').fadeIn();
+        //     $('header .tintbg').fadeIn();
+        // });  
+        // $('body#post-24185 main .rightColumn .island.active .islandContent .paginationWrapper i, body#post-23365 main .rightColumn .island.active .paginationWrapper i').click(function(){
+        //     $(this).parents('.paginationWrapper').fadeOut();
+        //     $('header .tintbg').fadeOut();
+        // });        
+        $('.dots').click(function(){
+            actions_menu($(this));
+        }); 
+
+        
+        if ($(window).width() > 1300) {
+            /*=== add-employee form reveal all fields ===*/
+            $('body#post-35048 main .for_mobile.orangeButton').click(function(){  
+                   
+                   if($(this).text()=="View Advanced") {
+                       $(this).text('View Less');
+                       $(this).css('top','-22px');
+                       $('body#post-35048 main .hidden_fields:nth-last-of-type(2), body#post-35048 main .hidden_fields:nth-last-of-type(1)').css('height','auto'); 
+                       $('body#post-35048 .add_emp_hide_field').css('display','block');
+                       $('body#post-35048 #per-heading, body#post-35048 .only_permission_level').css('display','none');
+                       $('body#post-35048 #work-heading').css('display','block');
+                       
+                   } else {
+                       $(this).text('View Advanced')
+                       $(this).css('top','-12px');
+       
+                       $('body#post-35048 main .hidden_fields:nth-last-of-type(2)').css('height','176px');  
+                       if(localStorage.getItem('designation_level') == "Admin_designation_level") {  
+                          $('body#post-35048 main .hidden_fields:nth-last-of-type(1)').css('height','136px');
+                       } else {
+                          $('body#post-35048 main .hidden_fields:nth-last-of-type(1)').css('height','100px');
+                       } 
+                       
+
+                       $('body#post-35048 .add_emp_hide_field').removeAttr('style');
+                       $('body#post-35048 .hide-sec-mobile').css('display','none');
+                       $('body#post-35048 #per-heading, body#post-35048 .only_permission_level').css('display','block');
+                       $('body#post-35048 #work-heading').css('display','none');               
+       
+                   }
+               });
+
+             
+        
+        } else {
+            /*=== add-employee form reveal all fields ===*/
+            $('body#post-35048 main .for_mobile.orangeButton').click(function(){  
+                   
+                   if($(this).text()=="View Advanced") {
+                       $(this).text('View Less');
+                       $(this).css('top','-22px');
+                       $('body#post-35048 main .hidden_fields:nth-last-of-type(2), body#post-35048 main .hidden_fields:nth-last-of-type(1)').css('height','auto'); 
+                       $('body#post-35048 .add_emp_hide_field').css('display','block');
+                       $('body#post-35048 #per-heading, body#post-35048 .only_permission_level').css('display','none');
+                       $('body#post-35048 #work-heading').css('display','block');
+                       
+                   } else {
+                       $(this).text('View Advanced')
+                       $(this).css('top','-12px'); 
+         
+                       $('body#post-35048 main .hidden_fields:nth-last-of-type(2)').css('height','176px'); 
+                       $('body#post-35048 .add_emp_hide_field').removeAttr('style');
+                       $('body#post-35048 .hide-sec-mobile').css('display','none');
+                       $('body#post-35048 #per-heading, body#post-35048 .only_permission_level').css('display','block');
+                       $('body#post-35048 #work-heading').css('display','none');  
+                      
+                       //Dropdown = so Employee, Manager, Admin, and then when Admin is selected, you get the Proxy question below
+                       if($('#designation_level').find('option:selected').val() == "admin"){
+                          $('body#post-35048 main .hidden_fields:nth-last-of-type(1)').css('height','150px');
+                       } else {
+                          $('body#post-35048 main .hidden_fields:nth-last-of-type(1)').css('height','110px');
+                          console.log('height resets')
+                       }      
+
+                        //check yes porxy on short view when close modal on advance view select yes   
+                        if(localStorage.getItem("admin_proxy") == "Yes" || $('body#post-35048 .permissions-section .employee_level p').hasClass('yes_proxy_text')) {
+                          $('.fourOption_proxy_error_Modal_info .proxy-info input#fourOption_proxy1').prop('checked',true);                         
+                        } else if(localStorage.getItem("admin_proxy") == "No" || !$('body#post-35048 .permissions-section .employee_level p').hasClass('yes_proxy_text')) {
+                          $('.fourOption_proxy_error_Modal_info .proxy-info input#fourOption_proxy2').prop('checked',true);
+                        }       
+                                         
+       
+                   }
+               })             
+            
+        }
+
+        
+
+        /*=== deletemodal popup ===*/
+        $('.deletemodal a.modal-close').click(function(){
+            $('header .tintbg').fadeOut();
+        })
+        
+
+        if($(window).width() <= 1380) {  
+           $('body#post-24185 li.uploadButton,body#post-26103 li.uploadButton').click(function(){
+              $(this).parent().css({'opacity' : '0', 'bottom' : '-100%'});
+              $('header .tintbg').fadeOut();
+           });
+        }
+
+    
+        //actionsmenu height of e-folder page      
+        $('body#post-26103 .dots').on('click',function(){            
+            var aa = $(this).siblings('.actionList');
+            if($(aa).find('li').length <= 3) {
+                $(aa).css('min-height','132px'); 
+                $(aa).addClass('mobile_ul_after_line'); 
+            }
+        })
+
+        //file snapshot menu active of mfile(view file detail) page 
+        var active_text = $('body#post-23885 #myTab').find('.activeTab').parent().attr('id');
+        $('.leftColumn .contentWrapper li').removeClass('bolderGreen');
+        switch(active_text) {            
+            case "notshared":
+                $('.leftColumn .contentWrapper li.shareMetric').addClass('bolderGreen');
+                break;
+            case "shared":
+                $('.leftColumn .contentWrapper li.unshareMetric').addClass('bolderGreen');
+                break;
+            case "signed":
+                $('.leftColumn .contentWrapper li.signedMetric').addClass('bolderGreen');
+                break;
+            case "notsigned":
+                $('.leftColumn .contentWrapper li.remindMetric').addClass('bolderGreen');
+                break;
+         }
+
+         //select text active of e-folder dropdown text of e-folder page 
+          var active_id = $('body#post-26103 #myTab, body#post-23365 #myTab').find('.activeTab').parent().attr('id');
+          switch(active_id) {            
+            case "allfiles":
+                var select_text = $('#select_id').find('#allfiles').text();
+                $('#select_category').text(select_text);
+                break;
+            case "handbook":
+                var select_text = $('#select_id').find('#handbook').text();
+                $('#select_category').text(select_text);
+                break;
+            case "agreement":
+                var select_text = $('#select_id').find('#agreement').text();
+                $('#select_category').text(select_text);
+                break;
+            case "hiring":
+                var select_text = $('#select_id').find('#hiring').text();
+                $('#select_category').text(select_text);
+                break;
+            case "management":
+                var select_text = $('#select_id').find('#management').text();
+                $('#select_category').text(select_text);
+                break;
+            case "other":
+                var select_text = $('#select_id').find('#other').text();
+                $('#select_category').text(select_text);
+                break;
+         }
+         $("#select_category:contains('(')").html(function () {
+              return $(this).html().replace(" (", "<span>("); 
+              return $(this).html().replace(")", ")</span>"); 
+          });
+
+         //filter result all text show in employee-folder
+          var emp_select_text = $('body#post-24185 .filters select.showDropdown').find('option:selected').val()
+          switch(emp_select_text){
+            case "all":            
+            $('body#post-24185 .filterResults').css({'opacity' : '0','margin' : '-5px 0 0 0'});
+            break;
+          }
+
+          //timeclock modal in employee individual folder     
+          $('#timeclock_modal_cover .modal').modal();
+          $('.cutup_modal_cover .modal').modal();
+          $('.upload_error_cover .modal').modal();
+
+  
+          //post-counter(add post) modal
+          $('.mem.vlt header .subNav.container ul li.view_post_modal').click(function(){
+               $('.mem.vlt header .subNav.container').stop().css({'right' : '-100%', 'visibility' : 'hidden'});
+               $('header .alertsDropdown.for_mobile').css('visibility' , 'visible');
+          })
+
+           //contact us & feedback modal - sidemenu hide when click on Cancel>Yes or Submit 
+          $('#contact_thankyou a.modal-close, #contactus_cancel .center a:last-child, #feedback_thankyou a.modal-close, #feed_cancel .center a:last-child, #add_cancel_btn .center button:last-child').click(function(){
+               $('.mem.vlt header .subNav.container').stop().css({'right' : '-100%', 'visibility' : 'hidden'});
+               $('header .tintbg').fadeOut();
+          })
+          
+
+        // $('body#post-23365 main .rightColumn #select_category').click(function(){
+        //     $('#myTab').css({'opacity' : '1', 'bottom' : '0%'});
+        //     $('header .tintbg').fadeIn();
+        // });
+
+        // /*== pagination_text ==*/
+        // var pagination_text = $('.current').val();
+        // $('body#post-24185 main span.pagination, body#post-23365 main span.pagination').text(pagination_text);
+
+        if($(window).width() <= 1024 || (window.innerWidth === 1024 && window.innerHeight === 1366)) {  
+             $('body#post-24185 .dots').click(function(){
+                $('body#post-24185 main .rightColumn .island.active, body#post-24185 .activeUserHighlight .listItem.visible').css('z-index','auto')
+            })
+        }
+
+        if($(window).width() <= 1024 || (window.innerWidth === 1366 && window.innerHeight === 1024)) { 
+            $('body#post-24185 li.hide_popup,body#post-26103 li.hide_popup,body#post-23365 li.hide_popup,body#post-23885 li.hide_popup').click(function(){
+                $(this).parent().css({'opacity' : '0', 'bottom' : '-100%'});
+                $('header .tintbg').fadeOut()
+            });
+
+             $('body#post-24185 .dots').click(function(){
+                $('body#post-24185 .activeUserHighlight .listItem.visible').css('z-index','auto')
+            })
+        }
+
+        //Action Menu z-index when coming straight from desktop to mobile
+        $('.dots').click(function(){
+            $('.activeUserHighlight .listItem.visible').css('z-index','auto')
+        });
+
+        if($(window).width() < 991) {        
+ 
+            /*== hints-menu toggle ==*/
+            $('span.questionMark').click(function(){
+                add_showhints($(this));
+            })           
+
+            $('.actionList li, .eeActionList li').click(function(){
+                $(this).siblings('li').find('.itemTooltip').removeClass('showhints');
+            })
+
+            /*== edit alert button css ==*/
+            $('body#post-25554 main .controlWrapper button.orangeButton[value="Delete"]').parent('.controlWrapper').css('padding','17px 0 50px');
+            $('body#post-25554 main .controlWrapper button.orangeButton[value="Delete"]').siblings('.cancelButton, span').css('top','50px');
+
+
+            /*== select_category text - master-folder ==*/
+            // $('body#post-23365 main .rightColumn .island.active #myTab .switcher .titleWrapper').click(function(){
+            //      var category_count_text = $(this).find('span').text();
+            //      var category_text = $(this).children('span').empty().end().text();           
+
+            //      $(this).find('span').text(category_count_text);
+            //      $('body#post-23365 main .rightColumn #select_category').text(category_text);
+            //      $('body#post-23365 main .rightColumn #select_category').append('<span>'+category_count_text+'</span>');
+            //      $('#myTab').css({'opacity' : '0', 'bottom' : '-100%'});
+            //      $('header .tintbg').fadeOut();
+            // })
+
+            // $('.dots').click(function(){
+            //     $('.activeUserHighlight .listItem.visible').css('z-index','auto')
+            // });
+
+            /*=== add-employee form reveal all fields ===*/
+            $('body#post-35458 main .for_mobile.orangeButton').click(function(){ 
+                //level dropdown - mobile
+                // var designation_name = $('#designation_level').find('option:selected').val()
+                // if(designation_name == 4 || designation_name == 5 || designation_name == 3) {  
+                //     $('body#post-35458 main .permissions-section').removeClass('for_desktop');
+                // } else if(designation_name == 1) {
+                //     $('body#post-35458 main .permissions-section').addClass('for_desktop');
+                // }
+                if($(this).text()=="View Advanced") {
+                    $(this).text('View Less');
+                    $('body#post-35458 main .hidden_fields').css('height','auto'); 
+                    $('body#post-35458 .add_emp_hide_field').css('display','block');
+                    $('body#post-35458 #per-heading, body#post-35458 .only_permission_level').css('display','none');
+                    $('body#post-35458 #work-heading').css('display','block');
+                    let proxyCheck=localStorage.getItem('admin_proxy')
+                    let desig=localStorage.getItem('designation_level')
+                    if(proxyCheck==='Yes'){
+                      $('body#post-35458 .permissions-section .employee_level p').addClass('yes_proxy_text')
+                      console.log('proxy Yes')
+                    }else if(proxyCheck==='No'){
+                      $('body#post-35458 .permissions-section .employee_level p').removeClass('yes_proxy_text').addClass('no_proxy_text')
+                    }
+                    if(desig!='Admin_designation_level'){
+                      $('.more-permission.profile3-part').hide();
+                      $('body#post-35458 .permissions-section .employee_level p').removeClass('yes_proxy_text')
+                      
+                    }else if(desig==='Employee_designation_level'){
+                      
+                      $('body#post-35458 .permissions-section .employee_level p').text('Employee')
+                    }else if(desig==='Manager_designation_level'){
+                      $('body#post-35458 .permissions-section .employee_level p').text('Manager')
+                    }else if(desig==='Admin_designation_level'){
+                      $('body#post-35458 .permissions-section .employee_level p').text('Admin')
+                    }
+
+                } else {
+                    $(this).text('View Advanced')
+
+                    $('body#post-35458 main .hidden_fields:nth-last-of-type(2)').css('height','240px'); 
+                    $('body#post-35458 main form[action="/membership/sandbox4/mod_employee_mem.php"] .hidden_fields:nth-last-of-type(1)').css('height','241px');   
+                    $('body#post-35458 .add_emp_hide_field').removeAttr('style');   
+                    $('body#post-35458 #per-heading, body#post-35458 .only_permission_level').css('display','block');
+                    $('body#post-35458 #work-heading').css('display','none');          
+
+                    //Dropdown = so Employee, Manager, Admin, and then when Admin is selected, you get the Proxy question below
+                     if(localStorage.getItem('designation_level') == "Admin_designation_level"){
+                        $('body#post-35458 main .hidden_fields:nth-last-of-type(1)').css('height','150px');                       
+                     } else { 
+                        $('body#post-35458 main .hidden_fields:nth-last-of-type(1)').css('height','117px');
+                        if(localStorage.getItem('designation_level') == "Employee_designation_level"){
+                          $('select#designation_level').val('1')
+                        }else if(localStorage.getItem('designation_level') == "Manager_designation_level"){
+                          $('select#designation_level').val('3')
+                        }
+                        console.log('height resets2')
+
+                        $('body#post-35458 main .profile5_disables.profile5view .hidden_fields:nth-last-of-type(1)').css('height','365px');
+                     }  
+                     if(localStorage.getItem('profileSelected') == "3_4" && localStorage.getItem("admin_proxy") == "No"){
+                        if(localStorage.getItem('designation_level')==='Admin_designation_level'){
+                          $('body#post-35458 main .hidden_fields:nth-last-of-type(1)').css('height','150px');
+                        }
+                        
+                        $('.fourOption_proxy_error_Modal_info .four_proxy-info').show();
+                        $('.fourOption_proxy_error_Modal_info #fourOption_proxy2').prop('checked',true);
+                     } else if(localStorage.getItem('profileSelected') == "6" || localStorage.getItem("admin_proxy") == "Yes"){
+
+                        $('.fourOption_proxy_error_Modal_info .four_proxy-info').show();
+                        if(localStorage.getItem('designation_level')!='Admin_designation_level'){
+                          console.log('not admin')
+                          $('.fourOption_proxy_error_Modal_info .four_proxy-info').show();
+                          
+                        }
+                        $('.fourOption_proxy_error_Modal_info #fourOption_proxy1').prop('checked',true);
+                     } else { 
+                        $('body#post-35458 main .hidden_fields:nth-last-of-type(1)').css('height','117px');
+                        $('.fourOption_proxy_error_Modal_info .four_proxy-info').hide();
+                        $('body#post-35458 main .profile5_disables.profile5view .hidden_fields:nth-last-of-type(1)').css('height','365px');
+                     }  
+                    
+                }
+            })
+            $('body#post-35458 main .for_mobile.orangeButton').click(function(){ 
+              const adminCheck = localStorage.getItem('designation_level');
+              
+              if(adminCheck==='Admin_designation_level'){
+                if($('body#post-35458 main .for_mobile.orangeButton').text()==='View Advanced'){
+                  $('body#post-35458 main .hidden_fields:nth-last-of-type(1)').css('height','150px');
+                  $('div#admin-modals .four_proxy-info').css('display','block')
+                  console.log('admin No 2')
+                  $('select#designation_level').val('5')
+                  const adminProxyCheck = localStorage.getItem('admin_proxy');
+
+                      if(!adminProxyCheck || adminProxyCheck==='No'){
+                        $('input#fourOption_proxy2').prop('checked', true)
+                      }
+                }
+
+              }
+              else if(adminCheck==='Manager_designation_level'){
+                  console.log('Manager')
+                  if($('body#post-35458 main .for_mobile.orangeButton').text()==='View Advanced'){
+                    $('select#designation_level').val('3')
+                  }
+                }
+            })
+            //3) When on the Trash tab, can you hide the Upload Button and show the Delete button?
+            // $('body#post-23365 .trashButton').click(function(){
+            //     //$('.top_trashdeletebtn').
+            //     $('.uploadButton').hide();
+            //     $('.top_trashdeletebtn').show();
+            //     $(this).after('<a class="orangeButton waves-effect waves-light trashdeletebtn top_trashdeletebtn inactive" href="#delete_modal">Delete</a>');
+            // })
+
+            //4) Horizontal. Can't get to the Delete Hint because the action menu doesn't scroll. - Resources Page
+            $('.action_list_1 .questionMark').on('click', function() {
+              $('.action_list_1').addClass('active_menu');
+            })  
+
+            $('.action_list_2 .questionMark, .action_list_2 .questionMark2').on('click', function() {
+              $('.action_list_2').addClass('active_menu');
+            })  
+            
+        }       
+
+        if($(window).width() > 992) { 
+            /*=== add-employee form reveal all fields ===*/
+            $('body#post-35458 main .for_mobile.orangeButton').click(function(){                
+                if($(this).text()=="View Advanced") {
+                    $(this).text('View Less');
+                    console.log('proxy Yes2')
+                    $('body#post-35458 main .hidden_fields').css('height','auto'); 
+                    $('body#post-35458 .add_emp_hide_field').css('display','block') ;
+                    
+                    if(localStorage.getItem('admin_proxy')==='Yes'){
+                      $('body#post-35458 .permissions-section .employee_level p').addClass('yes_proxy_text')
+                    }else if(localStorage.getItem('admin_proxy')==='No'){
+                      $('body#post-35458 .permissions-section .employee_level p').removeClass('yes_proxy_text')
+                    }
+                    if(localStorage.getItem('designation_level')!='Admin_designation_level'){
+                       $('.more-permission.profile3-part').hide()
+                       $('body#post-35458 .permissions-section .employee_level p').removeClass('yes_proxy_text')
+                    }
+                    $('body#post-35458 #per-heading, body#post-35458 .only_permission_level').css('display','none');
+                    $('body#post-35458 #work-heading').css('display','block');
+                                       
+                } else {
+                    $(this).text('View Advanced')
+                    console.log('admin No 2')
+                      const adminProxyCheck = localStorage.getItem('admin_proxy');
+                      const desig = localStorage.getItem('designation_level');
+
+                      if(desig==='Manager_designation_level'){
+                        $('select#designation_level').val('3')
+                        $('body#post-35458 .permissions-section .employee_level p').text('Manager')
+                        setTimeout(()=>{$('body#post-35458 .permissions-section .employee_level p').removeClass('yes_proxy_text')}, 500)
+                      }
+
+                      else if(desig==='Employee_designation_level'){
+                        $('select#designation_level').val('1')
+                        $('body#post-35458 .permissions-section .employee_level p').text('Employee')
+                        setTimeout(()=>{$('body#post-35458 .permissions-section .employee_level p').removeClass('yes_proxy_text')}, 500)
+                      }
+                      else if(desig==='Admin_designation_level'){
+                        $('select#designation_level').val('5')
+                        $('body#post-35458 .permissions-section .employee_level p').text('Admin')
+                      }
+
+                      if(!adminProxyCheck || adminProxyCheck==='No'){
+                        $('input#fourOption_proxy2').prop('checked', true)
+                      }
+                      else if(adminProxyCheck==='Yes'){
+                        $('input#fourOption_proxy1').prop('checked', true)
+                      }
+                      if(localStorage.getItem('designation_level')!='Admin_designation_level'){
+                       $('body#post-35458 main .hidden_fields:nth-last-of-type(1)').css('height','117px');
+                      }else{
+                        $('body#post-35458 main .hidden_fields:nth-last-of-type(1)').css('height','150px');
+                      }
+                    $('body#post-35458 main .hidden_fields:nth-last-of-type(2)').css('height','240px');     
+                      
+
+                    $('body#post-35458 main form[action="/membership/sandbox4/mod_employee_mem.php"] .hidden_fields:nth-last-of-type(1)').css('height','365px');   
+                    $('body#post-35458 .add_emp_hide_field').removeAttr('style');   
+                    $('body#post-35458 #per-heading, body#post-35458 .only_permission_level').css('display','block');
+                    $('body#post-35458 #work-heading').css('display','none');           
+                }
+            })
+        }
+
+
+    });
+  
+
+//Contact & Feedback modal - name & subject fields clear when again reopen modals
+$('.contact_btn').click(function(){
+    $('#contact_subject, #contact_message').val('');
+    $('#contactUs .orangeButton').addClass('disabled-button');
+});
+$('.feedback_btn').click(function(){
+    $('#feedback_subject, #feedback_message').val('');
+    $('#feedback .orangeButton').addClass('disabled-button');
+});
+
+//Edit Post Modal - keep the original message but just not save changes
+ $(document).on('click', '.alertEdit button[name="alert"]', function(){  
+     var addpost_tiny_content =  tinyMCE.get('alertmessage').getContent();
+     localStorage.setItem("tiny_content", addpost_tiny_content);
+ });
+
+$(document).on('click', '.addCancle_btn', function(){
+   $('header .alertsDropdown.for_mobile').fadeOut(); 
+   $('#alertsubject, .add_date').val('');
+   //$('.proxy_checkbox').prop('checked', false);
+   var existing_content =  localStorage.getItem("tiny_content")
+   tinyMCE.get('alertmessage').setContent(existing_content);
+   $('#addPost .orangeButton:last-child').addClass('disabled-button');      
+});
+
+$(document).on('click', '.addalert .add_post_btn, .mobile_menu a[title="Add Bulletin"]', function(){       
+     tinyMCE.get('alertmessage').setContent('');
+     localStorage.clear();
+     console.log('admin No 3')
+ });
+
+</script> 
+<!-- /mobile-menu script-->
+<script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/jquery.content-panel-switcher.js"></script>
+<script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/jquery.loadTemplate.min.js"></script>
+<script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/materialize.js"></script>
+<script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/helpers.js"></script>
+<? if (is_page(31633) || is_page(23365) || is_page(24185) || is_page(26103)) { ?>
+  <script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/<? echo $new; ?>single_uploadmodal.js?v=0.3"></script>
+<? } else { ?>
+  <script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/<? echo $new; ?>uploadmodal.js?v=0.3"></script>
+<? } ?>
+<script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/datepicker.config.js"></script>
+<script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/pay.js"></script>
+<script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/tooltip.js"></script>
+<script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/jquery.number.min.js"></script>
+<script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/main.js?v=1.0"></script>
+<!-- <script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/jquery.nicescroll.min.js"></script> -->
+<!-- <script type="text/javascript" src="https://www.cedrsolutions.com/membership/sandbox4/wp-content/themes/Meraki/js/fsExact.js?v=0.45"></script> -->
+<script type="text/javascript" src="https://www.cedrsolutions.com/membership/sandbox4/wp-content/themes/Meraki/js/fs.js?v=0.45"></script>
+<script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/jquery-ui.js"></script> 
+<!-- select-folder dropdown script - master-folder page -->
+<script type="text/javascript">    
+    $('.mytab_dropdown').on('change', '#select_id', function(){ 
+      var counter_text = $(this).find('option:selected').text();
+      //console.log(counter_text);
+      $('#select_category').text(counter_text);
+      $("#select_category:contains('(')").html(function () {
+          return $(this).html().replace(" (", "<span>("); 
+          return $(this).html().replace(")", ")</span>"); 
+      });  
+      var contentId = '#' + $('#select_id').find('option:selected').attr('id') + '-content';        
+      var contentId_html = $(contentId).html()
+      $('#switcher1-panel').html(contentId_html);  
+
+      var islandRoot = $('.island');
+      islandRoot.find('.metricCollapser').click(function() {
+            $(this).closest('.listItem').toggleClass('active');
+            if ($(this).closest('.listItem').hasClass('expandAll')) {
+                $(this).closest('.listItem').removeClass('expandAll');
+                $(this).closest('.listItem').removeClass('active');
+            }
+        });
+
+        $('.dots').click(function(){
+            actions_menu($(this));
+            $('.activeUserHighlight .listItem.visible').css('z-index','auto')
+        });
+
+        $('span.questionMark').click(function(){
+            add_showhints($(this));
+        })
+       
+        $('.eeActionList li').on('click', '.questionMark', function(){
+            add_showhints($(this));
+        })
+
+        $('.actionList li').click(function(){
+            $(this).siblings('li').find('.itemTooltip').removeClass('showhints');
+        })
+        //actionsmenu height of e-folder page
+        $('body#post-26103 .dots').on('click',function(){            
+            var aa = $(this).siblings('.actionList');
+            if($(aa).find('li').length <= 3) {
+                $(aa).css('min-height','132px'); 
+                $(aa).addClass('mobile_ul_after_line'); 
+            }
+        })
+        
+        
+           
+    function tooltipInit() {
+            var questionMark = $('.questionMark');
+
+            questionMark.hover(
+                function(){
+                    var dataTypeMessage =  getDataType($(this));
+                    $(this).siblings('.itemTooltip').find('.tooltipMessage').text(dataTypeMessage);
+                    $(this).siblings('.itemTooltip').show();
+                },
+                function() {
+                    $(this).siblings('.itemTooltip').hide();
+                }
+            );
+           
+            function getDataType(obj) {
+                var tooltipText;
+                switch(obj.attr('data-state')) {
+                    case 'un-visible':
+                        tooltipText = "File is already visible.";
+                        break;
+                    case 'un-invisible':
+                        tooltipText = "File is already invisible.";
+                        break;
+                    case 'un-signable':
+                        tooltipText = "File is already signable.";
+                        break;    
+                    case 'un-urgentsignable':
+                        tooltipText = "File is already urgent signable.";
+                        break;
+                    case 'un-unsignable1':
+                        tooltipText = "File is already unsignable.";
+                        break;        
+                    case 'un-unsignable2':
+                        tooltipText = "File is already signed by at least 1 employee.";
+                        break;
+                    case 'un-unsignable3':
+                        tooltipText = "File is awaiting mandatory signing per CEDR.";
+                        break;        
+                    case 'un-share':
+                        tooltipText = "File is already shared with everyone.";
+                        break;
+                    case 'un-share2':
+                        tooltipText = "File can only be shared by CEDR.";
+                        break;  
+                    case 'un-unshare':
+                        tooltipText = "File is not shared with anyone.";
+                        break;    
+                    case 'un-remindable1':
+                        tooltipText = "File is unsignable.";
+                        break;
+                    case 'un-remindable2':
+                        tooltipText = "File is invisible.";
+                        break;
+                    case 'un-remindable3':
+                        tooltipText = "File is not shared with anyone.";
+                        break;
+                    case 'un-remindable4':
+                        tooltipText = "File is signed by everyone.";
+                        break;
+                    case 'un-deletable':
+                        tooltipText = "File is shared.";
+                        break;
+                    case 'un-invite1':
+                        tooltipText = "User is deactivated.";
+                        break;
+                    case 'un-invite2':
+                        tooltipText = "User already accepted invite.";
+                        break;
+                    case 'un-invite3':
+                        tooltipText = "User level is higher than yours.";
+                        break;    
+                    case 'un-invite4':
+                        tooltipText = "Can't invite yourself.";
+                        break;   
+                    case 'un-invite5':
+                        tooltipText = "User already invited."; 
+                        break;  
+                    case 'un-reinvite1':
+                        tooltipText = "User is deactivated.";
+                        break;
+                    case 'un-reinvite2':
+                        tooltipText = "User has not yet been invited.";
+                        break;
+                    case 'un-reinvite3':
+                        tooltipText = "User level is higher than yours.";
+                        break;  
+                    case 'un-reinvite4':
+                        tooltipText = "Cannot re-invite yourself.";
+                        break;       
+                    case 'un-enable1':
+                        tooltipText = "User is already activated.";
+                        break;       
+                    case 'un-enable2':
+                        tooltipText = "User level is higher than yours.";
+                        break;
+                    case 'un-disable1':
+                        tooltipText = "User is already deactivated.";
+                        break;
+                    case 'un-disable2':
+                        tooltipText = "User level is higher than yours.";
+                        break;
+                    case 'un-disable3':
+                        tooltipText = "Cannot disable yourself.";
+                        break;    
+                    case 'un-efdelete1':
+                        tooltipText = "File is shared. Go to Master to delete.";
+                        break;
+                    case 'un-efdelete2':
+                        tooltipText = "File is signed.";
+                        break;
+                    case 'un-efdelete3':
+                        tooltipText = "File is generated by HR Vault.";
+                        break;       
+                    case 'un-efvisible':
+                        tooltipText = "File is shared. Go to Master to make visible.";
+                        break;
+                    case 'un-efinvisible':
+                        tooltipText = "File is shared. Go to Master to make invisible.";
+                        break;        
+                    case 'un-efremindable1':
+                        tooltipText = "File is shared. Go to Master to remind.";
+                        break;     
+                    case 'un-efremindable2':
+                        tooltipText = "File is signed.";
+                        break;
+                    case 'un-efsignable1':
+                        tooltipText = "File is shared. Go to Master to make signable.";
+                        break;    
+                    case 'un-efsignable2':
+                        tooltipText = "File is signed.";
+                        break;
+                    case 'un-efunsignable1':
+                        tooltipText = "File is shared. Go to Master to make unsignable.";
+                        break;
+                    case 'un-efurgentsignable1':
+                        tooltipText = "File is shared. Go to Master to make urgent signable.";
+                        break;      
+                    case 'un-efinvisible2':
+                        tooltipText = "File is signed.";
+                        break;                          
+                    default:
+                        tooltipText = "Hint Missing";
+                        break;
+                    case 'un-efmove':
+                        tooltipText = "File is shared. Go to Master to move.";
+                        break;
+                }
+                return tooltipText;
+            }
+    }
+
+    tooltipInit();
+
+    
+    // The switcher panel nukes all the objects in the panel so this resets all the getters and setters for this module.
+    $('.switcher').on('click', function() {    
+        tooltipInit();
+    })
+
+    var selectAll = $('.filters .shareSelect');
+        var selectCount = 0;
+        selectAll.click(function() {
+            selectCount++;
+            islandRoot.find($('.rightColumn .listItem .shareSelect input')).click();
+            if(selectCount % 2 != 0) {
+                $(this).text('Unselect All');
+            } else {
+                $(this).text('Select All');
+            }
+        });  
+
+  });
+//////////////////
+ 
+    
+  // pagination select-dropdown - master-fodler
+  var pagination_text = $('.pagination select').val();
+  $('.pagination .pagination-text').text(pagination_text);  
+
+
+</script>
+<!-- /select-folder dropdown script - master-folder page -->
+<script>
+    FS.setUserVars({
+        displayname: "<?PHP echo $myusername; ?>",
+        email: "<?PHP echo $myusername; ?>",
+        memLevel_str: "<?PHP echo $level; ?>"
+    });
+
+    FS.identify( "<?PHP echo $uid; ?>", {
+        displayname: "<?PHP echo $myusername; ?>",
+        memLevel_str: "<?PHP echo $level; ?>"
+    })
+</script>
+<?php
+if(is_page(26103))
+{
+?> 
+<script>
+$(document).ready(function(){   
+    var filtervalue=$('#dropDownId').val();
+    console.log(filtervalue);
+    if(filtervalue=='unsigned')
+    {
+        $('.unsigned').addClass('bolderGreen');
+    }
+    if(filtervalue=='signed')
+    {
+        $('.signed').addClass('bolderGreen');
+    }
+
+
+    
+    
+
+  });
+</script>
+<?php }
+/*if(is_page(23885))
+{*/
+ ?>
+<script>
+    $(document).ready(function(){
+         //alert("ddd");
+    // console.log($('.activeTab').attr('class'));
+
+    // $('.contentWrapper ul li').removeClass('bolderGreen');
+    // if(className.indexOf('shareTab') > = 0){
+    //     console.log("dd");
+    //     $('.shareMetric').addClass('bolderGreen');
+
+    // }
+
+    //topbuttons script
+    // I moved it to the header.php so Sassy (aka Kristen) can test -- Rob
+    /* 
+    function topbuttons(btnList) {
+        const btnName = ['PTO & Time', 'HIPAA', 'CEDR Mem', 'Master Access'];
+        const btnColor = ['green', 'bright-blue', 'dark-blue', 'light-blue'];
+        var buttons_row = $('.top_buttons');
+        buttons_row.empty();
+        for(let i=0; i < btnList.length; i++) {
+            let j = btnList[i];
+            $(buttons_row).append(`<a class="waves-effect waves-light ${btnColor[j - 1]}" href="#" id="btn${i + 1}">${btnName[j - 1]}</a>`) 
+        }
+    }
+    topbuttons([1,2,3,4]);
+    */
+
+    // $('body#post-23885 .fileButton').each( function(i, el) {
+    //     const that = $(el);
+    //      if(that.is(":visible") == true && that.hasClass('topunshare')){  
+    //          console.log("top un share")          
+    //        document.getElementById('select_id').selectedIndex = "1";
+    //        $('#select_category').text(document.getElementById('select_id')[1].text)  
+    //        $("#select_category:contains('(')").html(function () {
+    //           return $(this).html().replace(" (", "<span>("); 
+    //           return $(this).html().replace(")", ")</span>"); 
+    //       });
+    //     } 
+    //     if(that.is(":visible") == true && that.hasClass('top-remind')){              
+    //        document.getElementById('select_id').selectedIndex = "3";
+    //        $('#select_category').text(document.getElementById('select_id')[3].text)  
+    //        $("#select_category:contains('(')").html(function () {
+    //           return $(this).html().replace(" (", "<span>("); 
+    //           return $(this).html().replace(")", ")</span>"); 
+    //       });
+    //     } 
+    // }); 
+
+  updateCurrentTab();
+    function updateCurrentTab() {
+      if(localStorage.getItem("currentTab")) {
+        const currentTab = localStorage.getItem("currentTab");
+        if(currentTab == "Share") {
+        document.getElementById('select_id').selectedIndex = "0";
+
+         // $('#select_category').text(document.getElementById('select_id')[0].text); 
+
+        $("#select_category:contains('(')").html(function () {
+          return $(this).html().replace(" (", "<span>("); 
+          return $(this).html().replace(")", ")</span>"); 
+        });
+                //$('body#post-23885 main #select_id').val(currentTab);
+
+                 var counter_text = $('.mytab_dropdown').find('option:selected').text();
+                 //$('#select_category').text(counter_text)
+                 //console.log('currentTab',currentTab)
+                // console.log('select text',counter_text)
+        }
+        if(currentTab == "Unshare") {
+        document.getElementById('select_id').selectedIndex = "1";             
+
+         $('#select_category').text(document.getElementById('select_id')[1].text);
+
+             $("#select_category:contains('(')").html(function () {
+                return $(this).html().replace(" (", "<span>("); 
+                return $(this).html().replace(")", ")</span>"); 
+             });
+
+               var counter_text = $('.mytab_dropdown').find('option:selected').text();
+              //$('body#post-23885 main #select_id').val(currentTab);
+                // console.log('currentTab',currentTab)
+                 //console.log('select text',counter_text)
+        }
+        if(currentTab == "Signed") {
+        document.getElementById('select_id').selectedIndex = "2";
+        $('#select_category').text(document.getElementById('select_id')[2].text);
+             $("#select_category:contains('(')").html(function () {
+                return $(this).html().replace(" (", "<span>("); 
+                return $(this).html().replace(")", ")</span>"); 
+            });
+               console.log(currentTab)
+        }
+        if(currentTab == "Remind") {
+        document.getElementById('select_id').selectedIndex = "3";
+        $('#select_category').text(document.getElementById('select_id')[3].text);
+             $("#select_category:contains('(')").html(function () {
+                return $(this).html().replace(" (", "<span>("); 
+                return $(this).html().replace(")", ")</span>"); 
+            });
+               console.log(currentTab)
+        }
+      }
+    }
+
+//     if($('body#post-23885 main .mytab_dropdown select').find('option:selected').val() == "Unshare" || $('body#post-23885 main .mytab_dropdown select').find('option:selected').val() == "Share"){
+//        $('body#post-23885 main #select_id').val('Share');
+//   } 
+
+    $(document).on('click', 'body#post-23885 .fileButton', function() {
+      console.log(this.innerText);
+      const currentTab = this.innerText;
+      let checkBoxes = document.getElementsByClassName('myCheckBox');
+      let isChecked = false;
+      for (let i = 0; i < checkBoxes.length; i++) {
+          if (checkBoxes[i].checked) {
+              isChecked = true;
+          } 
+      };
+      if(isChecked) {
+        if (typeof(Storage) !== "undefined") {
+        localStorage.setItem("currentTab", currentTab);
+      }
+      }
+    });
+
+   
+
+});
+
+
+</script>
+<!--empty data alert-->
+
+<script>
+$('.mem.vlt header .subNav.container ul li.view_post_modal').click(function(){
+    var post_length = $('header .alertsDropdown.for_mobile ul li .alertBadge, header .alertsDropdown.for_mobile ul li .timestamp, header .alertsDropdown.for_mobile ul li strong').length;
+
+    if(post_length==0){
+
+$('header .alertsDropdown.for_mobile ul').empty()            
+$('header .alertsDropdown.for_mobile ul').append('<b style="padding:20px;">NO Data found</b>')
+            $('button[name="alert"]').hide()
+     }
+
+})
+</script>
+<script>
+$(document).ready(function () {
+    $(".actions").on('click', function () {
+        const _ = $(this);
+        let actionList = _.find('.actionList');
+        let actionListHeight = actionList.height() + 70;
+        let bodyHeight = $("body").height();
+        let actionsOffset = _.offset().top;
+       (actionListHeight, bodyHeight, actionsOffset);  
+       (actionListHeight > (bodyHeight - actionsOffset));  
+        
+        if (actionListHeight > (bodyHeight - actionsOffset)) {
+            actionList.addClass('show-on-top');
+        } else {
+            actionList.removeClass('show-on-top');
+        }
+
+    });
+
+    // $('.modal-trigger').leanModal({
+    //     dismissible: false
+    // });
+});
+</script>
+<script>
+
+document.getElementById("goBack").addEventListener("click", goBack);
+
+ function goBack() {
+    window.location.assign("https://www.cedrsolutions.com/membership/sandbox4/efolders/") 
+}
+// add css in tiny iframe
+$("#alertmessage_ifr").on("load", function() {
+    console.log("loaded")
+    let head = $("#alertmessage_ifr").contents().find("head");
+
+    console.log("head", head);
+    let css = '<style>body{min-height: 90px !important;}</style>';
+    $(head).append(css);
+});
+
+<?php wp_footer(); ?>
