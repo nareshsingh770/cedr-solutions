@@ -3309,6 +3309,10 @@
             var temp_desig = localStorage.getItem('temp_designation_level')
             if(temp_desig==='Admin_designation_level'){
                 $('div#custom_admin').addClass('mobile_permission_preeti_yes')
+                if(localStorage.getItem('temp_admin_aproxy')==='Yes'){
+                    $('#four_custom_lastpermissionApplyModal #custom_admin2 input, #four_custom_lastpermissionApplyModal #custom_manager2 input, #four_custom_lastpermissionApplyModal #custom_employees2 input').prop("checked", true);
+                    $('#four_custom_lastpermissionApplyModal #custom_admin2 input, #four_custom_lastpermissionApplyModal #custom_employees2 input').attr("disabled", true);
+                }
             }else if(temp_desig!='Admin_designation_level'){
                 $('div#custom_admin').removeClass('mobile_permission_preeti_yes')
             }
@@ -3587,6 +3591,14 @@
         });
 
        /*====== four_admin_selection - four permisison modals ======*/
+        const for_employee_selection =()=>{
+            $('#four_custom_permissionApplyModal #custom_manager').find('input').prop('checked',false);
+            $('#four_custom_permissionApplyModal #custom_admin').find('input').prop('checked',true);
+        }
+        const for_manager_selection =()=>{
+            $('#four_custom_permissionApplyModal #custom_manager, #four_custom_lastpermissionApplyModal #custom_manager2, #four_custom_lastpermissionApplyModal #custom_employees2').find('input').prop('checked',false);
+            $('#four_custom_permissionApplyModal #custom_admin').find('input').prop('checked',true);
+        }
         function four_admin_selection() {
             $('#four_custom_permissionApplyModal .manager_tab_btn').prev('li').show();            
             $('.manager_tab_btn, .owner_tab_btn, #admin-modals #employee_orangeButton, #admin_four_proxy_orangeButton, #admin_four_proxy_no_orangeButton').hide();
@@ -3658,6 +3670,8 @@
 
         }
 
+        
+
         $('#four_custom_insuranceModal2 select').change(function(){ 
 
             console.log('selected Levels')
@@ -3669,6 +3683,15 @@
                     console.log('temp manager')
                     
                     localStorage.setItem('temp_designation_level','Manager_designation_level');
+
+                    const tempDesig = localStorage.getItem('temp_designation_level')
+                    const desigLevel = localStorage.getItem('designation_level')
+
+                    if(tempDesig!=desigLevel){
+                        for_manager_selection()
+                        console.log("not matched")
+                    }
+
                     $('#custom_admin, #custom_manager, #custom_manager2').removeClass('mobile_permission_preeti_no mobile_permission_preeti_yes')
                     
 
@@ -3684,7 +3707,7 @@
                     $('.manager_level2').siblings('.orangeButton').hide();
                     $('#admin-modals .four_proxy-info .proxy_checkbox').prop('checked',false);
 
-                    $('#four_custom_permissionApplyModal #custom_admin').find('input').prop('checked',true);
+                    
                     var permission_owner_tab = $('#four_custom_permissionApplyModal .tabs li.tab').eq(0).children().attr('href');            
                     $(permission_owner_tab).show();
                     $(permission_owner_tab).siblings().hide()
@@ -3724,7 +3747,7 @@
                     $('#four_custom_insuranceModal2 .orangeButton').removeClass('disabled-button');
 
                     //10b) The Manager default settings are not correct on profiles 3, 4, and 6:
-                    $('#four_custom_lastpermissionApplyModal #custom_manager2, #four_custom_lastpermissionApplyModal #custom_employees2').find('input').prop('checked',false)
+                    
                     
 
                 }
@@ -3761,6 +3784,15 @@
                     // setTimeout(()=>{ $('.more-permission.profile3-part').hide()},200)
 
                     localStorage.setItem('temp_designation_level','Employee_designation_level');
+
+                    const tempDesig = localStorage.getItem('temp_designation_level')
+                    const desigLevel = localStorage.getItem('designation_level')
+
+                    if(tempDesig!=desigLevel){
+                        for_employee_selection()
+                        console.log("not matched employee")
+                        
+                    }
                     
                     $('#custom_admin, #custom_manager, #custom_manager2').removeClass('mobile_permission_preeti_no mobile_permission_preeti_yes')
                     
@@ -3772,7 +3804,7 @@
                     $('.manager_level, .manager_level2').hide();
                     $('.manager_level2').siblings('.orangeButton').show();
                     $('#admin-modals .button1_modal .four_proxy-info .proxy_checkbox').prop('checked',false);
-                    $('#four_custom_permissionApplyModal #custom_admin').find('input').prop('checked',true);
+                    
                     $('#four_custom_insuranceModal2 .orangeButton').removeClass('disabled-button');
                     $('.manager_tab_btn').show();
 
@@ -3848,7 +3880,7 @@
         $(document).on('click', '#employee_modal i', function() {
             var permission_text = $('body#post-35458 .permissions-section .employee_level p').text();        
             if(permission_text == "Employee"){
-                $('#four_custom_permissionApplyModal #custom_admin').find('input').prop('checked',true);
+                // $('#four_custom_permissionApplyModal #custom_admin').find('input').prop('checked',true);
             } else if(permission_text == "Manager"){                
                 $('body#post-35458 .permissions-section .employee_level p').removeClass('no_proxy_text')
             } 
@@ -4170,16 +4202,6 @@
                 if(result){
                     count+=1;
                 }
-
-
-                //   if(val.pay_checkbox===true){
-                //     payCount+=1
-                //     console.log(val.pay_checkbox)
-                //   }
-                //   else if(val.records_checkbox===true){
-                //     recordCount+=1
-                //     console.log(val.records_checkbox)
-                //   }
               })
               console.log(elem.permission.length, 'total selected:', count)
               if(elem.permission.length===count){
@@ -4401,6 +4423,46 @@
        $('#custom_admin').hide();
 
        
+
+
+       $('.back-btn.profile_1_2_3_4_6').click(function(){
+
+            console.log('CLICKED TO RESET')
+
+            $('select#roleLevelSelect').on('change', function(){
+                console.log('CLICKED TO RESET')
+                const level = $('select#roleLevelSelect option:selected').text()
+                console.log(level)
+
+                switch(level){
+                    case 'Employee': 
+                        for_employee_selection();
+                        $('#four_custom_insuranceModal2 .orangeButton').click(function(){
+                            selectAllCheckboxCheck();
+                        });
+                        
+                        console.log('%cemployee resets', 'color: #f00;')
+                        break;
+                    case 'Manager': 
+                        for_manager_selection();
+                        $('#four_custom_insuranceModal2 .orangeButton').click(function(){
+                            selectAllCheckboxCheck();
+                        });
+                        console.log('%cmanager resets', 'color: #f00;')
+                        break;
+                    case 'Admin': 
+                        four_admin_selection();
+                        $('#four_custom_insuranceModal2 .orangeButton').click(function(){
+                            selectAllCheckboxCheck();
+                        });
+                        console.log('%cadmin resets', 'color: #f00;')
+                        break;
+                }
+                
+            })
+        })
+
+
        var selectedProxy = localStorage.getItem('admin_proxy')
        var selectedesig = localStorage.getItem('designation_level')
        if(!selectedProxy || selectedProxy==='No'){
@@ -4435,7 +4497,7 @@
                     $('.manager_level, .manager_level2').hide();
                     $('.manager_level2').siblings('.orangeButton').show();
                     $('#admin-modals .button1_modal .four_proxy-info .proxy_checkbox').prop('checked',false);
-                    $('#four_custom_permissionApplyModal #custom_admin').find('input').prop('checked',false);
+                    // $('#four_custom_permissionApplyModal #custom_admin').find('input').prop('checked',false);
                     $('#four_custom_insuranceModal2 .orangeButton').removeClass('disabled-button');
                     $('.manager_tab_btn').show();
                 break;
@@ -4452,7 +4514,7 @@
                 $('.manager_level2').siblings('.orangeButton').hide();
                 $('#admin-modals .four_proxy-info .proxy_checkbox').prop('checked',false);
 
-                $('#four_custom_permissionApplyModal #custom_admin').find('input').prop('checked',true);
+                // $('#four_custom_permissionApplyModal #custom_admin').find('input').prop('checked',true);
                 var permission_owner_tab = $('#four_custom_permissionApplyModal .tabs li.tab').eq(0).children().attr('href');            
                 $(permission_owner_tab).show();
                 $(permission_owner_tab).siblings().hide()
@@ -4492,7 +4554,7 @@
                 $('#four_custom_insuranceModal2 .orangeButton').removeClass('disabled-button');
 
                 //10b) The Manager default settings are not correct on profiles 3, 4, and 6:
-                $('#four_custom_lastpermissionApplyModal #custom_manager2, #four_custom_lastpermissionApplyModal #custom_employees2').find('input').prop('checked',false)
+                // $('#four_custom_lastpermissionApplyModal #custom_manager2, #four_custom_lastpermissionApplyModal #custom_employees2').find('input').prop('checked',false)
 
                 break;
             case "Admin":
@@ -4657,7 +4719,7 @@
                     $('.manager_level, .manager_level2').hide();
                     $('.manager_level2').siblings('.orangeButton').show();
                     $('#admin-modals .button1_modal .four_proxy-info .proxy_checkbox').prop('checked',false);
-                    $('#four_custom_permissionApplyModal #custom_admin').find('input').prop('checked',false);
+                    // $('#four_custom_permissionApplyModal #custom_admin').find('input').prop('checked',false);
                     $('#four_custom_insuranceModal2 .orangeButton').removeClass('disabled-button');
                     $('.manager_tab_btn').show();
   
@@ -4677,7 +4739,7 @@
                 $('.manager_level2').siblings('.orangeButton').hide();
                 $('#admin-modals .four_proxy-info .proxy_checkbox').prop('checked',false);
 
-                $('#four_custom_permissionApplyModal #custom_admin').find('input').prop('checked',true);
+                // $('#four_custom_permissionApplyModal #custom_admin').find('input').prop('checked',true);
                 var permission_owner_tab = $('#four_custom_permissionApplyModal .tabs li.tab').eq(0).children().attr('href');            
                 $(permission_owner_tab).show();
                 $(permission_owner_tab).siblings().hide()
@@ -4717,7 +4779,7 @@
                 $('#four_custom_insuranceModal2 .orangeButton').removeClass('disabled-button');
 
                 //10b) The Manager default settings are not correct on profiles 3, 4, and 6:
-                $('#four_custom_lastpermissionApplyModal #custom_manager2, #four_custom_lastpermissionApplyModal #custom_employees2').find('input').prop('checked',false)
+                // $('#four_custom_lastpermissionApplyModal #custom_manager2, #four_custom_lastpermissionApplyModal #custom_employees2').find('input').prop('checked',false)
             break;
 
             case "Admin_designation_level": 
