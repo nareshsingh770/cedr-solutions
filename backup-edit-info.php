@@ -2946,15 +2946,9 @@
                         break;
                 case 'Employee_designation_level':
                         $('#designation_level').prop('selectedIndex',0);
-                        $('#designation_level').closest('.hidden_fields').css('height','117px');
-                        $('.fourOption_proxy_error_Modal_info .four_proxy-info').hide();
-                        $('body#post-35458 .permissions-section .employee_level p').removeClass('yes_proxy_text'); 
                         break;
                 case 'Manager_designation_level':
                         $('#designation_level').prop('selectedIndex',1);
-                        $('#designation_level').closest('.hidden_fields').css('height','117px');
-                        $('.fourOption_proxy_error_Modal_info .four_proxy-info').hide(); 
-                        $('body#post-35458 .permissions-section .employee_level p').removeClass('yes_proxy_text');
 
                 }
         }
@@ -3257,16 +3251,16 @@
 
         //On shorter view when select any level from permission level dropdown then after changing one level to another level so when warning modal is show & click on cancel button so its should show the previous selected level instead of current level
         //get current value before change 
-        // let designation_level_old_value, designation_level_current_value;
+        let designation_level_old_value, designation_level_current_value;
 
-        // designation_level_old_value = $('#designation_level').find('option:selected').val();
+        designation_level_old_value = $('#designation_level').find('option:selected').val();
        // console.log(designation_level_old_value)
 
         //when click on "continue" button on profile change custom warningModal
-        $('#profile_change_custom_warningModal button.orangeButton.modal-close').click(function() {   // continue to allow settings
+        $('#profile_change_custom_warningModal button.orangeButton.modal-close').click(function() {
             console.log('proceed') 
-
             designation_level_current_value = $('#designation_level').find('option:selected').val();
+            designation_level_old_value = designation_level_current_value;
 
             //select option value to carry in below permission heading 
              var permission_select_level = $('#designation_level').find('option:selected').text();   
@@ -3280,60 +3274,29 @@
                     $('.fourOption_proxy_error_Modal_info .four_proxy-info').show();  
                     //set local storage
                     localStorage.setItem('designation_level','Admin_designation_level');
-                    localStorage.setItem('admin_proxy','No');
-
-                    $('.who_can_see_section, .more-permission').empty();
-                    //Who can see this employee?
-                    $('.who_can_see_section').html('<h3 class="cedr-blue-font beneTitle">Who can see this employee?</h3><div class="col s6"><b class="cedr-blue-font">Owner</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Pitteroff, Phillip</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div>');
-                    //Who can this employee see?    
-                    $('.more-permission').show();                   
-                    $('.more-permission').html('<h3 class="cedr-blue-font beneTitle">Who can this employee see?</h3><div class="col s6"><b class="cedr-blue-font">Manager(s)</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Burdett, Anna</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Owens, Marvin</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div><div class="col s6"><b class="cedr-blue-font">Employee(s)</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Caralenno, Maria</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Hart, Michael</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Howard, Katherine</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div> <div class="col s6"><p>Mills, Vicki</p></div> <div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div> <div class="col s6"><p>John, Doe</p></div> <div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div> <div class="horzDivider w90"></div>');
-
-
-                    // $('#fourOption_proxy2').prop('checked','checked')
-                    if(localStorage.getItem('admin_proxy')==='yes'){
-                        $('.fourOption_proxy_error_Modal_info #fourOption_proxy1').prop('checked',false);
-                        $('body#post-35458 .permissions-section .employee_level p').addClass('yes_proxy_text');
-                        $('.who_can_see_section, .more-permission').empty();
-                        //Who can see this employee?
-                        $('.who_can_see_section').html('<h3 class="cedr-blue-font beneTitle">Who can see this employee?</h3><div class="col s6"><b class="cedr-blue-font">Owner</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Pitteroff, Phillip</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div>');
-                        //Who can this employee see?    
-                        $('.more-permission').show();                   
-                        $('.more-permission').html('<h3 class="cedr-blue-font beneTitle">Who can this employee see?</h3><div class="col s6"><b class="cedr-blue-font">Admin(s)</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Gallo, Ronald</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Walters, Shannon</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div><div class="col s6"><b class="cedr-blue-font">Manager(s)</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Burdett, Anna</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Owens, Marvin</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div><div class="col s6"><b class="cedr-blue-font">Employee(s)</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Caralenno, Maria</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Hart, Michael</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Howard, Katherine</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="col s6"><p>Mills, Vicki</p></div> <div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div> <div class="col s6"><p>John, Doe</p></div> <div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="horzDivider w90"></div>');
-                    } else if(localStorage.getItem('admin_proxy') || localStorage.getItem('admin_proxy')==='No'){
-                        $('.fourOption_proxy_error_Modal_info #fourOption_proxy2').prop('checked',true);
-                        $('body#post-35458 .permissions-section .employee_level p').removeClass('yes_proxy_text');
-                        $('.who_can_see_section, .more-permission').empty();
-                        //Who can see this employee?
-                        $('.who_can_see_section').html('<h3 class="cedr-blue-font beneTitle">Who can see this employee?</h3><div class="col s6"><b class="cedr-blue-font">Owner</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Pitteroff, Phillip</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div>');
-                        //Who can this employee see?    
-                        $('.more-permission').show();                   
-                        $('.more-permission').html('<h3 class="cedr-blue-font beneTitle">Who can this employee see?</h3><div class="col s6"><b class="cedr-blue-font">Manager(s)</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Burdett, Anna</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Owens, Marvin</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div><div class="col s6"><b class="cedr-blue-font">Employee(s)</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Caralenno, Maria</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Hart, Michael</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Howard, Katherine</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div> <div class="col s6"><p>Mills, Vicki</p></div> <div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div> <div class="col s6"><p>John, Doe</p></div> <div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div> <div class="horzDivider w90"></div>');
-                        }                  
-                    break;
+                    $('#fourOption_proxy2').prop('checked','checked')
+                    $('.fourOption_proxy_error_Modal_info #fourOption_proxy1').prop('checked',false);
+                    $('body#post-35458 .permissions-section .employee_level p').addClass('yes_proxy_text');                    
+                break;
                 //if Manager is selected then height change
                 case "3":
-                    $('#designation_level').closest('.hidden_fields').css('height','117px');
+                    $('#designation_level').closest('.hidden_fields').css('height','110px');
                     //hide proxy
                     $('.fourOption_proxy_error_Modal_info .four_proxy-info').hide();  
                     //set local storage
                     localStorage.setItem('designation_level','Manager_designation_level');
                     // localStorage.removeItem("admin_proxy"); 
-                    $('body#post-35458 .permissions-section .employee_level p').removeClass('yes_proxy_text no_proxy_text');
-                    $('.who_can_see_section, .more-permission').empty();
-                    // $('.who_can_see_section').empty();
-                    //Who can see this employee?            
-                    $('.who_can_see_section').html('<h3 class="cedr-blue-font beneTitle">Who can see this employee?</h3><div class="col s6"><b class="cedr-blue-font">Owner</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Pitteroff, Phillip</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div><div class="col s6"><b class="cedr-blue-font">Admin(s)</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Gallo, Ronald</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Walters, Shannon</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div>');
+                    $('body#post-35458 .permissions-section .employee_level p').removeClass('yes_proxy_text no_proxy_text'); 
                 break;
                 //if Employee is selected then height change                
                 case "1":
-                    $('#designation_level').closest('.hidden_fields').css('height','117px');
+                    $('#designation_level').closest('.hidden_fields').css('height','110px');
                     //hide proxy
                     $('.fourOption_proxy_error_Modal_info .four_proxy-info').hide();
                     //set local storage
                     localStorage.setItem('designation_level','Employee_designation_level');
                     // localStorage.removeItem("admin_proxy"); 
-                    $('body#post-35458 .permissions-section .employee_level p').removeClass('yes_proxy_text no_proxy_text');
+                    $('body#post-35458 .permissions-section .employee_level p').removeClass('yes_proxy_text no_proxy_text'); 
                 break;
             }
             
@@ -3376,17 +3339,17 @@
             $('#profile_change_custom_warningModal').modal('open');
 
             var checkAdmin=localStorage.getItem('admin_proxy')
-            // var selectedOption = $('select#designation_level').val();
+            var selectedOption = $('select#designation_level').val();
 
-            // console.log(selectedOption,'admin content to show')
-            // if(selectedOption==='5'){
-            //     $('.who_can_see_section, .more-permission').empty();
-            //     //Who can see this employee?
-            //     $('.who_can_see_section').html('<h3 class="cedr-blue-font beneTitle">Who can see this employee?</h3><div class="col s6"><b class="cedr-blue-font">Owner</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Pitteroff, Phillip</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div>');
-            //     //Who can this employee see?    
-            //     $('.more-permission').show();                   
-            
-            // }
+            console.log(selectedOption,'admin content to show')
+            if(selectedOption==='5'){
+                $('.who_can_see_section, .more-permission').empty();
+                //Who can see this employee?
+                $('.who_can_see_section').html('<h3 class="cedr-blue-font beneTitle">Who can see this employee?</h3><div class="col s6"><b class="cedr-blue-font">Owner</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Pitteroff, Phillip</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div>');
+                //Who can this employee see?    
+                $('.more-permission').show();                   
+                $('.more-permission').html('<h3 class="cedr-blue-font beneTitle">Who can this employee see?</h3><div class="col s6"><b class="cedr-blue-font">Manager(s)</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Burdett, Anna</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Owens, Marvin</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div><div class="col s6"><b class="cedr-blue-font">Employee(s)</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Caralenno, Maria</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Hart, Michael</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Howard, Katherine</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div> <div class="col s6"><p>Mills, Vicki</p></div> <div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div> <div class="col s6"><p>John, Doe</p></div> <div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div> <div class="horzDivider w90"></div>');
+            }
 
 
             //after on chnage when click on cancel button
@@ -3394,28 +3357,28 @@
                 /*console.log('olddd', designation_level_old_value)*/
                 // console.log('currentttt', designation_level_current_value)
 
-                //  if(designation_level_old_value == "1") {
-                //     $('#designation_level').prop('selectedIndex',0); 
-                //     //proxy question hide
-                //     $('.fourOption_proxy_error_Modal_info .four_proxy-info').hide(); 
-                //     $('#designation_level').closest('.hidden_fields').css('height','110px'); 
-                //     $('body#post-35458 .permissions-section .employee_level p').removeClass('yes_proxy_text');   
-                //  } 
-                // else if(designation_level_old_value == "3") {
-                //     $('#designation_level').prop('selectedIndex',1); 
-                //     //proxy question hide
-                //     $('.fourOption_proxy_error_Modal_info .four_proxy-info').hide();  
-                //     $('#designation_level').closest('.hidden_fields').css('height','110px');
-                //     $('body#post-35458 .permissions-section .employee_level p').removeClass('yes_proxy_text');      
-                //  }   
-                //  else if(designation_level_old_value == "5") {
+                 if(designation_level_old_value == "1") {
+                    $('#designation_level').prop('selectedIndex',0); 
+                    //proxy question hide
+                    $('.fourOption_proxy_error_Modal_info .four_proxy-info').hide(); 
+                    $('#designation_level').closest('.hidden_fields').css('height','110px'); 
+                    $('body#post-35458 .permissions-section .employee_level p').removeClass('yes_proxy_text');   
+                 } 
+                else if(designation_level_old_value == "3") {
+                    $('#designation_level').prop('selectedIndex',1); 
+                    //proxy question hide
+                    $('.fourOption_proxy_error_Modal_info .four_proxy-info').hide();  
+                    $('#designation_level').closest('.hidden_fields').css('height','110px');
+                    $('body#post-35458 .permissions-section .employee_level p').removeClass('yes_proxy_text');      
+                 }   
+                 else if(designation_level_old_value == "5") {
 
-                //     $('#designation_level').prop('selectedIndex',2); 
-                //     //proxy question show
-                //     $('.fourOption_proxy_error_Modal_info .four_proxy-info').show();
-                //     $('#designation_level').closest('.hidden_fields').css('height','150px');
+                    $('#designation_level').prop('selectedIndex',2); 
+                    //proxy question show
+                    $('.fourOption_proxy_error_Modal_info .four_proxy-info').show();
+                    $('#designation_level').closest('.hidden_fields').css('height','150px');
 
-                //  }
+                 }
 
 
                 levelCheck();
@@ -3442,44 +3405,45 @@
                 //default permission = Employee Level & manager Level
                 case "Employee_designation_level":
                 case "Manager_designation_level":
-                    // $('.who_can_see_section, .more-permission').empty();
+                    $('.who_can_see_section, .more-permission').empty();
                     // $('.who_can_see_section').empty();
                     //Who can see this employee?            
-                    // $('.who_can_see_section').html('<h3 class="cedr-blue-font beneTitle">Who can see this employee?</h3><div class="col s6"><b class="cedr-blue-font">Owner</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Pitteroff, Phillip</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div><div class="col s6"><b class="cedr-blue-font">Admin(s)</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Gallo, Ronald</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Walters, Shannon</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div>');
+                    $('.who_can_see_section').html('<h3 class="cedr-blue-font beneTitle">Who can see this employee?</h3><div class="col s6"><b class="cedr-blue-font">Owner</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Pitteroff, Phillip</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div><div class="col s6"><b class="cedr-blue-font">Admin(s)</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Gallo, Ronald</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Walters, Shannon</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div>');
                 break;
             
             }  
         
 
             //Dropdown = so Employee, Manager, Admin, and then when Admin is selected, you get the Proxy question below = set Proxy heading
-            // var designation_admin_proxy = localStorage.getItem('admin_proxy');
-            // switch(designation_admin_proxy) {    
-            //     //default permission = Admin Level  "Yes"      
-            //     case "Yes":
-            //         if(localStorage.getItem('designation_level')==='Admin_designation_level'){
-            //             $('.who_can_see_section, .more-permission').empty();
-            //             //Who can see this employee?
-            //             $('.who_can_see_section').html('<h3 class="cedr-blue-font beneTitle">Who can see this employee?</h3><div class="col s6"><b class="cedr-blue-font">Owner</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Pitteroff, Phillip</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div>');
-            //             //Who can this employee see?    
-            //             $('.more-permission').show();                   
-            
-            //         }
-            //     break;
+            var designation_admin_proxy = localStorage.getItem('admin_proxy');
+            switch(designation_admin_proxy) {    
+                //default permission = Admin Level  "Yes"      
+                case "Yes":
+                    if(localStorage.getItem('designation_level')==='Admin_designation_level'){
+                        $('.who_can_see_section, .more-permission').empty();
+                        //Who can see this employee?
+                        $('.who_can_see_section').html('<h3 class="cedr-blue-font beneTitle">Who can see this employee?</h3><div class="col s6"><b class="cedr-blue-font">Owner</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Pitteroff, Phillip</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div>');
+                        //Who can this employee see?    
+                        $('.more-permission').show();                   
+                        $('.more-permission').html('<h3 class="cedr-blue-font beneTitle">Who can this employee see?</h3><div class="col s6"><b class="cedr-blue-font">Admin(s)</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Gallo, Ronald</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Walters, Shannon</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div><div class="col s6"><b class="cedr-blue-font">Manager(s)</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Burdett, Anna</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Owens, Marvin</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div><div class="col s6"><b class="cedr-blue-font">Employee(s)</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Caralenno, Maria</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Hart, Michael</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Howard, Katherine</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="col s6"><p>Mills, Vicki</p></div> <div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div> <div class="col s6"><p>John, Doe</p></div> <div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="horzDivider w90"></div>');
+                    }
+                break;
 
-            //     //default permission = Admin Level  "No"      
-            //     case "No":
-            //     if(localStorage.getItem('designation_level')==='Admin_designation_level'){
-            //         $('.who_can_see_section, .more-permission').empty();
-            //         //Who can see this employee?
-            //         $('.who_can_see_section').html('<h3 class="cedr-blue-font beneTitle">Who can see this employee?</h3><div class="col s6"><b class="cedr-blue-font">Owner</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Pitteroff, Phillip</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div>');
-            //         //Who can this employee see?    
-            //         $('.more-permission').show();                   
+                //default permission = Admin Level  "No"      
+                case "No":
+                if(localStorage.getItem('designation_level')==='Admin_designation_level'){
+                    $('.who_can_see_section, .more-permission').empty();
+                    //Who can see this employee?
+                    $('.who_can_see_section').html('<h3 class="cedr-blue-font beneTitle">Who can see this employee?</h3><div class="col s6"><b class="cedr-blue-font">Owner</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Pitteroff, Phillip</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div>');
+                    //Who can this employee see?    
+                    $('.more-permission').show();                   
+                    $('.more-permission').html('<h3 class="cedr-blue-font beneTitle">Who can this employee see?</h3><div class="col s6"><b class="cedr-blue-font">Manager(s)</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Burdett, Anna</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Owens, Marvin</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div><div class="col s6"><b class="cedr-blue-font">Employee(s)</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Caralenno, Maria</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Hart, Michael</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Howard, Katherine</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div> <div class="col s6"><p>Mills, Vicki</p></div> <div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div> <div class="col s6"><p>John, Doe</p></div> <div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div> <div class="horzDivider w90"></div>');
 
-            //     }
+                }
                     
-            //     break;
+                break;
 
-            // }
+            }
 
             //Dropdown = so Employee, Manager, Admin, and then when Admin is selected, you get the Proxy question below = set Proxy heading
             localStorage.getItem('admin_proxy') == "Yes" ? $('body#post-35458 .permissions-section .employee_level p').addClass('yes_proxy_text') : $('body#post-35458 .permissions-section .employee_level p').removeClass('yes_proxy_text'); 
@@ -3488,23 +3452,23 @@
 
             //On shorter view when select any level from permission level dropdown then after changing one level to another level so when warning modal is show & click on cancel button so its should show the previous selected level instead of current level
             var designation_level_value = $('#designation_level').find('option:selected').val()
-            // switch(designation_level_value) {  
-            //     //default permission = Employee Level & manager Level
-            //     case "1":
-            //         $('body#post-35458 .permissions-section .employee_level p').text('Employee');
-            //         $('.who_can_see_section, .more-permission').empty();
-            //         //Who can see this employee?            
-            //         $('.who_can_see_section').html('<h3 class="cedr-blue-font beneTitle">Who can see this employee?</h3><div class="col s6"><b class="cedr-blue-font">Owner</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Pitteroff, Phillip</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div><div class="col s6"><b class="cedr-blue-font">Admin(s)</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Gallo, Ronald</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Walters, Shannon</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div>');
-            //     break;
-            //     case "3":
-            //         $('body#post-35458 .permissions-section .employee_level p').text('Manager');        
-            //         $('.who_can_see_section, .more-permission').empty();
-            //         //Who can see this employee?            
-            //         $('.who_can_see_section').html('<h3 class="cedr-blue-font beneTitle">Who can see this employee?</h3><div class="col s6"><b class="cedr-blue-font">Owner</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Pitteroff, Phillip</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div><div class="col s6"><b class="cedr-blue-font">Admin(s)</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Gallo, Ronald</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Walters, Shannon</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div>');
-            //     break;
+            switch(designation_level_value) {  
+                //default permission = Employee Level & manager Level
+                case "1":
+                    $('body#post-35458 .permissions-section .employee_level p').text('Employee');
+                    $('.who_can_see_section, .more-permission').empty();
+                    //Who can see this employee?            
+                    $('.who_can_see_section').html('<h3 class="cedr-blue-font beneTitle">Who can see this employee?</h3><div class="col s6"><b class="cedr-blue-font">Owner</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Pitteroff, Phillip</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div><div class="col s6"><b class="cedr-blue-font">Admin(s)</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Gallo, Ronald</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Walters, Shannon</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div>');
+                break;
+                case "3":
+                    $('body#post-35458 .permissions-section .employee_level p').text('Manager');        
+                    $('.who_can_see_section, .more-permission').empty();
+                    //Who can see this employee?            
+                    $('.who_can_see_section').html('<h3 class="cedr-blue-font beneTitle">Who can see this employee?</h3><div class="col s6"><b class="cedr-blue-font">Owner</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Pitteroff, Phillip</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div><div class="col s6"><b class="cedr-blue-font">Admin(s)</b></div><div class="col s6"> <label class="records">Records</label> <label class="pay">Pay</label></div><div><div class="col s6"><p>Gallo, Ronald</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div><div class="col s6"><p>Walters, Shannon</p></div><div class="col s6"><div class="records-checkbox"><input name="eedi2" type="checkbox" checked="" disabled=""><label for=""></label></div><div class="pay-checkbox"><input name="eedi2" type="checkbox" disabled="" checked=""><label for=""></label></div></div></div><div class="horzDivider w90"></div>');
+                break;
             
             
-            // }
+            }
 
             var profileSelected = localStorage.getItem('profileSelected');
             switch(profileSelected) { 

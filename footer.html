@@ -391,7 +391,7 @@
                     $('body#post-35458 .add_emp_hide_field').css('display','block');
                     $('body#post-35458 #per-heading, body#post-35458 .only_permission_level').css('display','none');
                     $('body#post-35458 #work-heading').css('display','block');
-                    let proxyCheck=localStorage.getItem('admin_proxy')
+                    /*let proxyCheck=localStorage.getItem('admin_proxy')
                     let desig=localStorage.getItem('designation_level')
                     if(proxyCheck==='Yes'){
                       $('body#post-35458 .permissions-section .employee_level p').addClass('yes_proxy_text')
@@ -410,7 +410,7 @@
                       $('body#post-35458 .permissions-section .employee_level p').text('Manager')
                     }else if(desig==='Admin_designation_level'){
                       $('body#post-35458 .permissions-section .employee_level p').text('Admin')
-                    }
+                    }*/
 
                 } else {
                     $(this).text('View Advanced')
@@ -424,13 +424,13 @@
                     //Dropdown = so Employee, Manager, Admin, and then when Admin is selected, you get the Proxy question below
                      if(localStorage.getItem('designation_level') == "Admin_designation_level"){
                         $('body#post-35458 main .hidden_fields:nth-last-of-type(1)').css('height','150px');                       
-                     } else { 
+                     } else {
                         $('body#post-35458 main .hidden_fields:nth-last-of-type(1)').css('height','117px');
-                        if(localStorage.getItem('designation_level') == "Employee_designation_level"){
+                        /*if(localStorage.getItem('designation_level') == "Employee_designation_level"){
                           $('select#designation_level').val('1')
                         }else if(localStorage.getItem('designation_level') == "Manager_designation_level"){
                           $('select#designation_level').val('3')
-                        }
+                        }*/
                         console.log('height resets2')
 
                         $('body#post-35458 main .profile5_disables.profile5view .hidden_fields:nth-last-of-type(1)').css('height','365px');
