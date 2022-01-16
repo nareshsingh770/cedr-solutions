@@ -4068,7 +4068,7 @@
                     permission: []
                 }
                 //console.log(tabsId[i])
-                const nameInfo = $(tabsId[i].id).find('.name-info:not(.select-border)');        //all the rows in checkboxes without SELECT ALL rows
+                const nameInfo = $(tabsId[i].id).find('.name-info:not(.select-border)');        //all the rows in checkboxes except SELECT ALL rows
                 for(let j = 0; j < nameInfo.length; j++) {              
 
                     var name_text =  $(nameInfo[j]).find('p').text();    
@@ -4159,7 +4159,7 @@
 
         const selectAllCheckboxCheck = () =>{
             permissions_section[0].tabs.forEach(elem=>{
-              console.log(elem.tabId);
+            //   console.log(elem.tabId);
 
             const levelId = elem.tabId;
             let count=0;
@@ -4187,16 +4187,16 @@
                   const mainSelectCheckbox2 = document.querySelector(levelId).getElementsByClassName('main-checkbox2');
 
                   mainSelectCheckbox.forEach(elem=>{
-                      console.log(elem)
+                    //   console.log(elem)
                       elem.classList.remove('straight-line');
                   })
                   mainSelectCheckbox2.forEach(elem=>{
-                      console.log(elem)
+                    //   console.log(elem)
                       elem.classList.remove('straight-line');
                   })
               }
 
-              console.log(elem.permission.length, 'count:',count)
+            //   console.log(elem.permission.length, 'count:',count)
             //   console.log(`%c${recordCount} and ${payCount}`, "color: #F318AD;")
           })
         }
@@ -4342,7 +4342,6 @@
                 
 
                 if(havePermission) {
-
                     if(tabObj.tabId == '#custom_admin2' || tabObj.tabId == '#custom_manager2' || tabObj.tabId == '#custom_employees2') {
                          $('.more-permission').show();
                          if(permissionData){
@@ -4385,10 +4384,10 @@
                     else {
                         $('.who_can_see_section').append(permissionData);
 
-                        console.log('data',permissionData)
+                        // console.log('data',permissionData)
 
                        
-                        console.log('tabObj.tabId - yeee else vala  hhhh', tabObj.tabId)
+                        // console.log('tabObj.tabId - yeee else vala  hhhh', tabObj.tabId)
                     }
                 }   
             })
